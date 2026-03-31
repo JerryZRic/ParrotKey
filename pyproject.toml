@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "parrotkey"
+version = "0.1.0"
+description = "A local push-to-talk voice typing framework"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { file = "LICENSE" }
+authors = [
+  { name = "zric" }
+]
+dependencies = [
+  "numpy",
+  "sounddevice",
+  "pynput",
+  "torch",
+  "transformers",
+  "qwen-asr",
+]
+
+[project.scripts]
+parrotkey = "parrotkey.cli:main"
+
+[tool.setuptools]
+package-dir = { "" = "src" }
+
+[tool.setuptools.packages.find]
+where = ["src"]

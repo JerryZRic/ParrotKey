@@ -1,0 +1,6 @@
+numpy
+sounddevice
+pynput
+torch
+transformers
+qwen-asr
