@@ -2,9 +2,26 @@
 
 [English](README.md) | [简体中文](README.zh-CN.md) | [繁體中文](README.zh-TW.md) | [粵語](README.yue.md) | [日本語](README.ja.md) | [한국어](README.ko.md)
 
+[![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+[![Platform: Linux](https://img.shields.io/badge/platform-Linux-blue.svg)](README.md)
+[![Prototype](https://img.shields.io/badge/status-prototype-orange.svg)](README.md)
+[![Hugging Face Qwen3-ASR-0.6B](https://img.shields.io/badge/model-Qwen3--ASR--0.6B-yellow.svg)](https://huggingface.co/Qwen/Qwen3-ASR-0.6B)
+
 ParrotKey is a local push-to-talk voice typing framework.
 
 Hold a key, speak, release, and text appears.
+
+ParrotKey is designed as a backend-agnostic foundation for local voice typing tools, starting from a Linux prototype built around Qwen3-ASR.
+
+## Contents
+
+- [What It Does](#what-it-does)
+- [Current Status](#current-status)
+- [Quick Start](#quick-start)
+- [Model](#model)
+- [Run as a User Service](#run-as-a-user-service)
+- [Repository Layout](#repository-layout)
+- [Roadmap](#roadmap)
 
 ## What It Does
 
@@ -147,22 +164,18 @@ Notes:
 - The included example assumes an X11-style desktop session because clipboard paste is done through `xdotool` and `xclip`.
 - Depending on your desktop environment, you may need to keep `DISPLAY`, `XAUTHORITY`, `DBUS_SESSION_BUS_ADDRESS`, or `XDG_RUNTIME_DIR` available in the user service environment.
 
+## Repository Layout
+
+- `src/parrotkey/asr`: ASR backend adapters
+- `src/parrotkey/audio`: audio capture utilities
+- `src/parrotkey/hotkey`: hotkey handling
+- `src/parrotkey/inject`: text injection backends
+- `src/parrotkey/pipeline`: end-to-end voice typing flow
+- `examples`: service and deployment examples
+
 ## Development
 
 The current codebase is organized as a package under `src/parrotkey`, with the first prototype already split into config, ASR backend, text injection, and pipeline modules.
-
-## Documentation
-
-This repository keeps multiple README translations.
-
-When updating README content or adding a new README section, please update the other language versions as well:
-
-- `README.md`
-- `README.zh-CN.md`
-- `README.zh-TW.md`
-- `README.yue.md`
-- `README.ja.md`
-- `README.ko.md`
 
 ## Roadmap
 

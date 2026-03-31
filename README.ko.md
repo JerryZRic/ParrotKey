@@ -2,9 +2,26 @@
 
 [English](README.md) | [简体中文](README.zh-CN.md) | [繁體中文](README.zh-TW.md) | [粵語](README.yue.md) | [日本語](README.ja.md) | [한국어](README.ko.md)
 
+[![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+[![Platform: Linux](https://img.shields.io/badge/platform-Linux-blue.svg)](README.md)
+[![Prototype](https://img.shields.io/badge/status-prototype-orange.svg)](README.md)
+[![Hugging Face Qwen3-ASR-0.6B](https://img.shields.io/badge/model-Qwen3--ASR--0.6B-yellow.svg)](https://huggingface.co/Qwen/Qwen3-ASR-0.6B)
+
 ParrotKey는 로컬에서 동작하는 푸시투토크 음성 입력 프레임워크입니다.
 
 키를 누른 채 말하고, 키를 떼면 텍스트가 나타납니다.
+
+ParrotKey는 백엔드에 종속되지 않는 로컬 음성 입력 기반을 목표로 하며, 현재 첫 단계로 Qwen3-ASR 기반 Linux 프로토타입에서 시작하고 있습니다.
+
+## 목차
+
+- [무엇을 할 수 있나](#무엇을-할-수-있나)
+- [현재 상태](#현재-상태)
+- [빠른 시작](#빠른-시작)
+- [모델](#모델)
+- [사용자 서비스로 실행하기](#사용자-서비스로-실행하기)
+- [저장소 구조](#저장소-구조)
+- [로드맵](#로드맵)
 
 ## 무엇을 할 수 있나
 
@@ -147,22 +164,18 @@ journalctl --user -u parrotkey.service -f
 - 포함된 예시는 현재 텍스트 삽입이 `xdotool` 과 `xclip` 에 의존하기 때문에 X11 스타일 데스크톱 세션을 가정합니다.
 - 데스크톱 환경에 따라 `DISPLAY`, `XAUTHORITY`, `DBUS_SESSION_BUS_ADDRESS`, `XDG_RUNTIME_DIR` 를 사용자 서비스 환경에 전달해야 할 수 있습니다.
 
+## 저장소 구조
+
+- `src/parrotkey/asr`: ASR 백엔드 어댑터
+- `src/parrotkey/audio`: 오디오 캡처 유틸리티
+- `src/parrotkey/hotkey`: 핫키 처리
+- `src/parrotkey/inject`: 텍스트 삽입 백엔드
+- `src/parrotkey/pipeline`: 엔드 투 엔드 음성 입력 흐름
+- `examples`: 서비스와 배포 예시
+
 ## 개발
 
 현재 코드베이스는 `src/parrotkey` 패키지 아래에 있으며, 첫 번째 프로토타입은 설정, ASR 백엔드, 텍스트 삽입, 파이프라인 모듈로 나뉘어 있습니다.
-
-## 문서 관리
-
-이 저장소는 여러 언어의 README를 함께 관리합니다.
-
-앞으로 README 내용을 수정하거나 새 README 섹션을 추가할 때는 다음 파일들도 함께 업데이트해 주세요.
-
-- `README.md`
-- `README.zh-CN.md`
-- `README.zh-TW.md`
-- `README.yue.md`
-- `README.ja.md`
-- `README.ko.md`
 
 ## 로드맵
 

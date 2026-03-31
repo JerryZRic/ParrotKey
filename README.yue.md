@@ -2,9 +2,26 @@
 
 [English](README.md) | [简体中文](README.zh-CN.md) | [繁體中文](README.zh-TW.md) | [粵語](README.yue.md) | [日本語](README.ja.md) | [한국어](README.ko.md)
 
+[![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+[![Platform: Linux](https://img.shields.io/badge/platform-Linux-blue.svg)](README.md)
+[![Prototype](https://img.shields.io/badge/status-prototype-orange.svg)](README.md)
+[![Hugging Face Qwen3-ASR-0.6B](https://img.shields.io/badge/model-Qwen3--ASR--0.6B-yellow.svg)](https://huggingface.co/Qwen/Qwen3-ASR-0.6B)
+
 ParrotKey 係一個本地嘅按鍵通話式語音輸入框架。
 
 撳住一個鍵，講一句，放手之後，文字就會出現。
+
+ParrotKey 想做成一個同後端無關嘅本地語音輸入基礎框架，而家第一版就由基於 Qwen3-ASR 嘅 Linux 原型開始。
+
+## 目錄
+
+- [佢做到啲乜](#佢做到啲乜)
+- [而家狀態](#而家狀態)
+- [快速開始](#快速開始)
+- [模型](#模型)
+- [以使用者服務運行](#以使用者服務運行)
+- [倉庫結構](#倉庫結構)
+- [路線圖](#路線圖)
 
 ## 佢做到啲乜
 
@@ -147,22 +164,18 @@ journalctl --user -u parrotkey.service -f
 - 內附例子預設係 X11 風格桌面工作階段，因為而家文字插入方式靠 `xdotool` 同 `xclip`。
 - 視乎你用緊咩桌面環境，可能仲要俾使用者服務攞到 `DISPLAY`、`XAUTHORITY`、`DBUS_SESSION_BUS_ADDRESS` 或 `XDG_RUNTIME_DIR`。
 
+## 倉庫結構
+
+- `src/parrotkey/asr`：ASR 後端適配層
+- `src/parrotkey/audio`：音訊收錄工具
+- `src/parrotkey/hotkey`：熱鍵處理
+- `src/parrotkey/inject`：文字注入後端
+- `src/parrotkey/pipeline`：端到端語音輸入流程
+- `examples`：服務同部署例子
+
 ## 開發說明
 
 而家程式碼放喺 `src/parrotkey` 套件底下，第一版原型已經拆成設定、ASR 後端、文字注入同主流程模組。
-
-## 文件維護
-
-呢個倉庫會維護多語言 README。
-
-之後只要更新 README 內容，或者新增 README 章節，都請同步更新以下檔案：
-
-- `README.md`
-- `README.zh-CN.md`
-- `README.zh-TW.md`
-- `README.yue.md`
-- `README.ja.md`
-- `README.ko.md`
 
 ## 路線圖
 
