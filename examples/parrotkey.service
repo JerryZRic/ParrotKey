@@ -1,0 +1,17 @@
+[Unit]
+Description=ParrotKey push-to-talk voice typing
+After=graphical-session.target pipewire.service pulseaudio.service
+Wants=graphical-session.target
+
+[Service]
+Type=simple
+WorkingDirectory=/path/to/ParrotKey
+Environment=PATH=/path/to/ParrotKey/.venv/bin:/usr/local/bin:/usr/bin:/bin
+Environment=DISPLAY=:0
+Environment=XAUTHORITY=%h/.Xauthority
+ExecStart=/path/to/ParrotKey/.venv/bin/parrotkey --model-path /path/to/Qwen3-ASR-0.6B
+Restart=on-failure
+RestartSec=2
+
+[Install]
+WantedBy=default.target

@@ -1,5 +1,7 @@
 # ParrotKey
 
+[English](README.md) | [简体中文](README.zh-CN.md) | [繁體中文](README.zh-TW.md) | [粵語](README.yue.md) | [日本語](README.ja.md) | [한국어](README.ko.md)
+
 ParrotKey is a local push-to-talk voice typing framework.
 
 Hold a key, speak, release, and text appears.
@@ -87,9 +89,80 @@ System tools currently expected on Linux:
 - `paplay`
 - `notify-send`
 
+## Model
+
+The current prototype expects a local copy of `Qwen3-ASR-0.6B`.
+
+Official Hugging Face model page:
+
+https://huggingface.co/Qwen/Qwen3-ASR-0.6B
+
+Example download command:
+
+```bash
+huggingface-cli download Qwen/Qwen3-ASR-0.6B --local-dir /path/to/Qwen3-ASR-0.6B
+```
+
+## Run as a User Service
+
+If you want ParrotKey to stay available after login, run it as a `systemd --user` service.
+
+An example unit file is included at `examples/parrotkey.service`.
+
+1. Create the user service directory:
+
+```bash
+mkdir -p ~/.config/systemd/user
+```
+
+2. Copy the example service file:
+
+```bash
+cp examples/parrotkey.service ~/.config/systemd/user/parrotkey.service
+```
+
+3. Edit the service file and update:
+
+- `WorkingDirectory`
+- `Environment=PATH=...`
+- `ExecStart`
+- `--model-path`
+
+4. Reload and start the service:
+
+```bash
+systemctl --user daemon-reload
+systemctl --user enable --now parrotkey.service
+```
+
+5. Check logs if needed:
+
+```bash
+journalctl --user -u parrotkey.service -f
+```
+
+Notes:
+
+- This prototype currently depends on desktop session tools such as `xclip`, `xdotool`, `paplay`, and `notify-send`.
+- The included example assumes an X11-style desktop session because clipboard paste is done through `xdotool` and `xclip`.
+- Depending on your desktop environment, you may need to keep `DISPLAY`, `XAUTHORITY`, `DBUS_SESSION_BUS_ADDRESS`, or `XDG_RUNTIME_DIR` available in the user service environment.
+
 ## Development
 
 The current codebase is organized as a package under `src/parrotkey`, with the first prototype already split into config, ASR backend, text injection, and pipeline modules.
+
+## Documentation
+
+This repository keeps multiple README translations.
+
+When updating README content or adding a new README section, please update the other language versions as well:
+
+- `README.md`
+- `README.zh-CN.md`
+- `README.zh-TW.md`
+- `README.yue.md`
+- `README.ja.md`
+- `README.ko.md`
 
 ## Roadmap
 
